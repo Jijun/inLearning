@@ -23,6 +23,5 @@ public class ClockTest {
 		Instant instant = clock.instant();
 		Date legacyDate = Date.from(instant);
 		System.out.println(legacyDate);
-		
 	}
 }
