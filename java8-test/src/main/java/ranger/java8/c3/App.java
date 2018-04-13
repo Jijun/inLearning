@@ -8,10 +8,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import com.sun.corba.se.impl.orbutil.closure.Future;
-
 public class App {
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, ExecutionException {
 
 		Runnable task = () -> {
 			String currentThreadName = Thread.currentThread().getName();
@@ -48,6 +46,20 @@ public class App {
 				throw new IllegalStateException();
 			}
 		}).forEach(System.out::println);
-
+		//forkJoinPool
+		ExecutorService executor2 = Executors.newWorkStealingPool();
+		List<Callable<String>> callables2 = Arrays.asList(
+		callable("task1", 2),
+		callable("task2", 1),
+		callable("task3", 3));
+		String result = executor2.invokeAny(callables);
+		System.out.println(result);
 	}
+	
+	static Callable<String> callable(String result, long sleepSeconds) {
+		return () -> {
+		TimeUnit.SECONDS.sleep(sleepSeconds);
+		return result;
+		};
+		}
 }
