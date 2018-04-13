@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.sun.java.util.jar.pack.Package.File;
-
 public class FilesTest {
 	public static void main(String[] args) throws IOException {
 		try (Stream<Path> stream = Files.list(Paths.get(""))) {
